@@ -183,8 +183,8 @@
         <button type="button" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
       </div>
       <div style="font-size: 20px; text-align: right">
-        <input type="radio" name="notice" value="email">Email
-        <input type="radio" name="notice" value="sms" checked="checked">SMS
+        <input type="radio" name="notice" value="email" checked="checked">Email
+        <input type="radio" name="notice" value="sms">SMS
       </div>
       <div th:unless="${item.itemSellStatus == T(com.gsitm.intern.constant.ItemSellStatus).SELL}" class="text-right">
         <button type="button" class="btn btn-danger btn-lg">품절</button>

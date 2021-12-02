@@ -30,8 +30,7 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping(value= "/admin/item/new")
-    public String itemForm(Model model)
-    {
+    public String itemForm(Model model) {
         model.addAttribute("itemFormDto", new ItemFormDto());
         return "item/itemForm";
     }

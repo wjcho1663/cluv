@@ -29,38 +29,38 @@
             }
         });
 
-        // function sendAuthCode(){
-        //     //POST방식 데이터 전송에 필요한 CSRF 토큰 값 조회
-        //     var token = $("meta[name='_csrf']").attr("content");
-        //     var header = $("meta[name='_csrf_header']").attr("content");
-        //
-        //     var url = "/members/signUpEmail";
-        //     // var paramData = { //주문할 상품의 아이디와 주문 수량 데이터를 전달할 객체 생성
-        //     //     email : $("#email").val()
-        //     // };
-        //
-        //     // var param = JSON.stringify(paramData);  //서버에 보낼 주문 데이터를 json으로 변경
-        //
-        //     $.ajax({
-        //         url      : url,
-        //         type     : "POST",
-        //         data: {
-        //             email : $("#email").val()
-        //         },
-        //         beforeSend : function(xhr){
-        //             /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
-        //             xhr.setRequestHeader(header, token);
-        //         },
-        //         cache   : false,
-        //         success  : function(result, status){
-        //             console.log(result);
-        //             alert("이메일로 인증코드가 전송되었습니다.");
-        //         },
-        //         error: function() {
-        //             console.log(arguments);
-        //         }
-        //     });
-        // }
+        function sendAuthCode(){
+            //POST방식 데이터 전송에 필요한 CSRF 토큰 값 조회
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/members/signUpEmail";
+            // var paramData = { //주문할 상품의 아이디와 주문 수량 데이터를 전달할 객체 생성
+            //     email : $("#email").val()
+            // };
+
+            // var param = JSON.stringify(paramData);  //서버에 보낼 주문 데이터를 json으로 변경
+
+            $.ajax({
+                url      : url,
+                type     : "POST",
+                data: {
+                    email : $("#email").val()
+                },
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                cache   : false,
+                success  : function(result, status){
+                    console.log(result);
+                    alert("이메일로 인증코드가 전송되었습니다.");
+                },
+                error: function() {
+                    console.log(arguments);
+                }
+            });
+        }
     </script>
 
 </th:block>
@@ -77,13 +77,14 @@
             <label th:for="email">이메일주소</label>
             <input type="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
-<!--            <button type="button" class="btn btn-primary btn-lg" onclick="sendAuthCode()">이메일 인증</button>-->
+            <button type="button" class="btn btn-primary btn-lg" onclick="sendAuthCode()">이메일 인증</button>
         </div>
-<!--        <div class="form-group">-->
-<!--            <label th:for="email">인증 코드</label>-->
-<!--            <input type="code" th:field="*{code}" class="form-control" placeholder="인증코드를 입력해주세요">-->
-<!--            <p th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="fieldError">Incorrect data</p>-->
-<!--        </div>-->
+        <!--인증 코드 추가 부분-->
+        <div class="form-group">
+            <label th:for="code">인증 코드</label>
+            <input type="text" th:field="*{code}" class="form-control" placeholder="인증코드를 입력해주세요">
+            <p th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="fieldError">Incorrect data</p>
+        </div>
         <div class="form-group">
             <label th:for="password">비밀번호</label>
             <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호 입력">

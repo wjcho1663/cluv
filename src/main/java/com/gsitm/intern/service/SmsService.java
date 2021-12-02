@@ -65,8 +65,8 @@ public class SmsService {
         Item item = itemRepository.findById(orderDto.getItemId()).
                 orElseThrow(EntityNotFoundException::new);
 
-        String text = "[GS SHOP] 주문 상품 내역입니다.\n" + "주문 상품 : " + item.getItemNm() + "\n주문 수량 : " + orderDto.getCount() +
-                "\n주문 금액 : " + item.getPrice() * orderDto.getCount() + "원 입니다.";
+        String text = "[GS SHOP] 주문 상품 내역\n" + "주문 상품 : " + item.getItemNm() + "\n주문 수량 : " + orderDto.getCount() +
+                "\n주문 금액 : " + item.getPrice() * orderDto.getCount() + "원";
         sendSms(phone, text);
     }
 
@@ -74,15 +74,23 @@ public class SmsService {
 
         Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
 
-        String text = "[GS SHOP]주문상품 내역\n";
+        String smsText = "[GS SHOP]주문상품 내역\n";
 
+        StringBuffer sb = new StringBuffer(smsText);
+        //TODO. 장바구니 데이터 불러오기
         for(OrderItem orderItem : order.getOrderItems()) {
-            text += orderItem.getItem().getItemNm()
-                    + "(" + orderItem.getItem().getPrice()
-                    + " 원) x " + orderItem.getCount() + "개\n";
+            sb.append(orderItem.getItem().getItemNm());
+            sb.append("(");
+            sb.append(orderItem.getItem().getPrice());
+            sb.append(" 원) x ");
+            sb.append(orderItem.getCount() + "개\n");
         }
 
-        text += "\n주문 금액: " + order.getTotalPrice()+ "원\n";
+        sb.append("\n주문 금액 : ");
+        sb.append(order.getTotalPrice());
+        sb.append("원\n");
+
+        String text = sb.toString();
 
         sendSms(phone, text);
     }

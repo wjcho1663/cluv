@@ -70,6 +70,12 @@ spring:
       max-file-size: 20MB
       max-request-size: 100MB
 
+springdoc:
+  swagger-ui:
+    path: springdoc.html
+    version: v1
+    paths-to-match: /**
+
 
 mybatis:
   mapper-locations: sqlmap/mappers/*.xml

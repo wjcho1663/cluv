@@ -129,6 +129,7 @@
       var dataList = new Array();
       var paramData = new Object();
 
+
       //체크된 장바구니 상품 아이디를 전달하기 위해 dataList 배열에 장바구니 상품 아이디를 객체로 만들어 저장
       $("input[name=cartChkBox]:checked").each(function() {
         var cartItemId = $(this).val();
@@ -139,6 +140,7 @@
 
       //장바구니 상품 아이디를 저장하고 있는 dataList 배열을 paramData 객체에 추가
       paramData['cartOrderDtoList'] = dataList;
+      paramData['notice'] = $('input[name="notice"]:checked').val();
 
       var param = JSON.stringify(paramData);
 
@@ -267,6 +269,11 @@
 
     <div class="text-center mt-3">
       <button type="button" class="btn btn-primary btn-lg" onclick="orders()">주문하기</button>
+    </div>
+    <!--알림 전송방식 선택 라디오 버튼-->
+    <div style="font-size: 20px; text-align: right">
+      <input type="radio" name="notice" value="email" checked="checked">Email
+      <input type="radio" name="notice" value="sms">SMS
     </div>
 
   </div>

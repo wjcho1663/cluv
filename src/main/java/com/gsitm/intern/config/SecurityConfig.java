@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**","/js/**","/img/**");
+        web.ignoring().antMatchers("/springdoc.html","/swagger-ui.html",
+                "/swagger-ui/**","/v3/api-docs/**");
     }
 
     @Bean

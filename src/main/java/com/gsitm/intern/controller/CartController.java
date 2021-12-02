@@ -122,9 +122,13 @@ public class CartController {
 
         String email = principal.getName();
         String phone = memberRepository.findByEmail(email).getPhone();
+        String notice = cartOrderDto.getNotice();
 
-        emailService.sendCartOrderEmail(email, orderId);
-        smsService.sendCartOrderSms(phone, orderId);
+        if(notice.equals("email")){
+            emailService.sendCartOrderEmail(email, orderId);
+        } else if(notice.equals("sms")){
+            smsService.sendCartOrderSms(phone, orderId);
+        }
         //생성된 주문 번호와 요청이 성공한 HTTP 응답 상태 코드 반환
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }

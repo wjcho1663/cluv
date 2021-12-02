@@ -29,7 +29,7 @@ public class AuthTokenService {
     }
     public AuthToken getToken(String email) {
         Member member = memberRepository.findByEmail(email);
-        AuthToken authtoken = authTokenRepository.findByMemberOrderByRegTime(member);
+        AuthToken authtoken = authTokenRepository.findFirstByMemberOrderByRegTimeDesc(member);
         return authtoken;
     }
 

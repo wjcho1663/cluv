@@ -51,11 +51,17 @@ public class OrderController {
         String phone = memberRepository.findByEmail(email).getPhone();
         Long orderId;
 
+        String notice = orderDto.getNotice();
+
         try {
             //화면에서 넘어오는 주문 정보와 회원의 이메일 정보를 이용해 주문로직 호출
             orderId = orderService.order(orderDto, email);
-                smsService.sendOrderSms(phone, orderDto);
+
+            if(notice.equals("email")){
                 emailService.sendOrderEmail(email, orderDto);
+            } else if(notice.equals("sms")){
+                smsService.sendOrderSms(phone, orderDto);
+            }
 
         } catch(Exception e){
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
