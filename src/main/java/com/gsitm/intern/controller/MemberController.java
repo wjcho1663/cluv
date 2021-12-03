@@ -84,13 +84,16 @@ public class MemberController {
             // TODO. 비밀번호 변경 (URL 링크)
             // TODO. 이메일 보내기
             emailService.sendPasswordEmail(email);
+            // TODO. alert창 페이지 띄우고 redirect로 로그인 페이지로 이동
+            model.addAttribute("message", "이메일을 확인하여 비밀번호를 변경해주세요.");
+            model.addAttribute("location","/members/login");
         } catch(Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
 
             return "member/findPassword";
         }
 
-        return "redirect:/members/login";
+        return "redirect";
     }
 
     @GetMapping(value = "/updatePassword")
@@ -122,13 +125,15 @@ public class MemberController {
         try {
             // TODO. 비밀번호 변경
             memberService.updatePassword(memberId, password);
+            model.addAttribute("message", "비밀번호가 변경되었습니다.");
+            model.addAttribute("location","/members/login");
 
         } catch(Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
 
             return "member/updatePassword";
         }
-        return "redirect:/";
+        return "redirect";
     }
 
     @PostMapping(value = "/signUpEmail")

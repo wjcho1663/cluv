@@ -18,7 +18,7 @@ public class SmsNotice extends BaseEntity {
     private Long id;
 
     @Lob
-    private String sms_content;
+    private String smsContent;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")

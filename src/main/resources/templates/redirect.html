@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>페이지 이동중</title>
+</head>
+<body>
+    <script th:inline="javascript">
+        var _message = [[${message}]];
+        var _location = [[${location}]];
+
+        alert(_message);
+
+        location.href = _location;
+    </script>
+</body>
+</html>

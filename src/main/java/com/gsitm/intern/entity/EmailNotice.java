@@ -18,7 +18,7 @@ import javax.persistence.*;
         private Long id;
 
         @Lob
-        private String email_content;
+        private String emailContent;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "order_id")
