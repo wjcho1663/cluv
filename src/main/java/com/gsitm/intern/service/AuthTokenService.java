@@ -19,10 +19,8 @@ public class AuthTokenService {
     private final AuthTokenRepository authTokenRepository;
     private final MemberRepository memberRepository;
 
-    // TODO. 토큰 코드 생성
-
     public String getTokenCode(String email) {
-        // TODO. 해당 Email에 해당하는 Member에 할당된 AuthCode 가져오기
+        //해당 Email에 해당하는 Member에 할당된 code 가져오기(해쉬값)
         String code = EncryptionUtils.encryptMD5(email + LocalDateTime.now());
 
         return code;
@@ -34,39 +32,33 @@ public class AuthTokenService {
     }
 
     public AuthToken createToken(String email) {
-        // TODO. Entity 생성
         AuthToken authToken = new AuthToken();
-        // TODO. 토큰 코드 생성(호출)
+        //토큰 코드 생성(호출)
         authToken.setCode(getTokenCode(email));
-
-        // TODO. 사용자 정보 등록(Member)
+        //사용자 정보 등록(Member)
         authToken.setMember(memberRepository.findByEmail(email));
-
-        // TODO. 만료 시간 설정
+        //만료 시간 설정
         authToken.setExpireDate(LocalDateTime.now().plusHours(1));
 
-        // TODO. Entity 등록
-        // TODO. Entity 반환
         return authTokenRepository.save(authToken);
     }
 
     public void invalidateToken(String email) {
-        // TODO. 해당 Email에 해당하는 Member에 할당된 AuthCode의 YN을 설정
+        //해당 Email에 해당하는 Member에 할당된 토큰 사용여부 설정
         AuthToken authToken = getToken(email);
         authToken.setUseYn("Y");
     }
 
     public boolean validateExpireToken(String email, String code) {
-        // TODO. Member에 할당된 AuthCode 가져오기
         AuthToken authToken = getToken(email);
-        // TODO. AuthCode의 code와 매개변수의 code가 같은 지
+        // AuthCode의 code와 매개변수의 code가 같은지 비교
         if (!code.equals(authToken.getCode())) {
             return false;
         }
         if (!authToken.getUseYn().equals("N")) {
             return false;
         }
-        // TODO. AuthCode의 expireDate가 현재 시간보다 작은 지
+        // AuthCode의 expireDate가 현재 시간보다 작은지 비교
         if (authToken.getExpireDate().isBefore(LocalDateTime.now())) {
             return false;
         }
@@ -74,7 +66,6 @@ public class AuthTokenService {
     }
 
     public AuthToken getTokenByCode(String code){
-
         AuthToken authToken = authTokenRepository.findFirstByCodeOrderByRegTimeDesc(code);
 
         return authToken;

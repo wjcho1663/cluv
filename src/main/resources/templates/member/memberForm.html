@@ -35,11 +35,6 @@
             var header = $("meta[name='_csrf_header']").attr("content");
 
             var url = "/members/signUpEmail";
-            // var paramData = { //주문할 상품의 아이디와 주문 수량 데이터를 전달할 객체 생성
-            //     email : $("#email").val()
-            // };
-
-            // var param = JSON.stringify(paramData);  //서버에 보낼 주문 데이터를 json으로 변경
 
             $.ajax({
                 url      : url,
@@ -77,7 +72,7 @@
             <label th:for="email">이메일주소</label>
             <input type="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
-            <button type="button" class="btn btn-primary btn-lg" onclick="sendAuthCode()">이메일 인증</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="sendAuthCode()">이메일 인증</button>
         </div>
         <!--인증 코드 추가 부분-->
         <div class="form-group">
@@ -95,6 +90,7 @@
             <input type="text" th:field="*{address}" class="form-control" placeholder="주소를 입력해주세요">
             <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
         </div>
+        <!--휴대폰 번호 추가-->
         <div class="form-group">
             <label th:for="phone">휴대폰 번호</label>
             <input type="text" th:field="*{phone}" class="form-control" placeholder="휴대폰 번호를 입력해주세요">

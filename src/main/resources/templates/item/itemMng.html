@@ -75,7 +75,7 @@
 
         <li class="page-item" th:classappend="${items.first}?'disabled'">
           <a th:onclick="'javascript:page(' + ${items.number - 1} + ')'" aria-label='Previous' class="page-link">
-            <span aria-hidden='true'>Previous</span>
+            <span aria-hidden='true'>이전</span>
           </a>
         </li>
 
@@ -85,7 +85,7 @@
 
         <li class="page-item" th:classappend="${items.last}?'disabled'">
           <a th:onclick="'javascript:page(' + ${items.number + 1} + ')'" aria-label='Next' class="page-link">
-            <span aria-hidden='true'>Next</span>
+            <span aria-hidden='true'>다음</span>
           </a>
         </li>
 

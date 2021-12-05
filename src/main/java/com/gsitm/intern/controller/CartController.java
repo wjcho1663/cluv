@@ -120,6 +120,7 @@ public class CartController {
         //주문 로직 호출 결과 생성된 주문 변화 반환
         Long orderId = cartService.orderCartItem(cartOrderDtoList, principal.getName());
 
+        //알림 전송할 이메일, 휴대폰 정보, 알림 전송 방식 가져오기
         String email = principal.getName();
         String phone = memberRepository.findByEmail(email).getPhone();
         String notice = cartOrderDto.getNotice();

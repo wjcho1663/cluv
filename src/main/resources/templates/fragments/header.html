@@ -3,13 +3,14 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <div th:fragment="header">
-        <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="/">Shop</a>
+            <a th:href="@{/}" class="header-logo"><img th:src="@{/img/star2.png}"></a>
+            <a class="navbar-brand" href="/">STAR SHOP</a>
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -28,9 +29,6 @@
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link" href="/orders">구매이력</a>
                     </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" href="/members/updatePassword">회원정보</a>
-                    </li>
                     <li class="nav-item" sec:authorize="isAnonymous()">
                         <a class="nav-link" href="/members/login">로그인</a>
                     </li>
@@ -41,7 +39,7 @@
                 <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
                     <input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="Search"
                            aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><img src="/img/searchIcon.png"></button>
+                    <button class="btn btn-sm btn" type="submit"><img src="/img/searchIcon.png"></button>
                 </form>
             </div>
         </nav>
