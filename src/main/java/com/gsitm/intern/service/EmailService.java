@@ -5,6 +5,7 @@ import com.gsitm.intern.dto.MemberFormDto;
 import com.gsitm.intern.dto.OrderDto;
 import com.gsitm.intern.entity.*;
 import com.gsitm.intern.repository.AuthTokenRepository;
+import com.gsitm.intern.repository.EmailNoticeRepository;
 import com.gsitm.intern.repository.ItemRepository;
 import com.gsitm.intern.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Service
@@ -28,6 +30,7 @@ public class EmailService {
     private final ItemRepository itemRepository;
     private final AuthTokenRepository authTokenRepository;
     private final OrderRepository orderRepository;
+    private final EmailNoticeRepository emailNoticeRepository;
 
     @Async
     public void sendEmail(String to, String subject, String text) {
@@ -62,6 +65,10 @@ public class EmailService {
         String text = "[GS SHOP] 주문 상품 내역입니다.\n" + "주문 상품 : " + item.getItemNm() + "\n주문 수량 : " + orderDto.getCount() +
                 "\n주문 금액 : " + item.getPrice() * orderDto.getCount() + "원 입니다.\n";
         sendEmail(email, subject, text);
+
+        EmailNotice emailNotice = new EmailNotice();
+        emailNoticeRepository.save(emailNotice);
+        System.out.println("============"+emailNoticeRepository.count());
     }
     //장바구니 주문 시 이메일 전송 메소드
     public void sendCartOrderEmail(String email, Long orderId){
@@ -90,6 +97,9 @@ public class EmailService {
         String text = sb.toString();
 
         sendEmail(email, subject, text);
+
+        EmailNotice emailNotice = new EmailNotice();
+        emailNoticeRepository.save(emailNotice);
     }
 
     public void sendPasswordEmail(String email){

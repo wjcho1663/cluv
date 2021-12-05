@@ -17,11 +17,4 @@ import javax.persistence.*;
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
 
-        @Lob
-        private String emailContent;
-
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "order_id")
-        private Order order;
-
     }
